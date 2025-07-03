@@ -6,6 +6,7 @@ import (
     "github.com/ktaki8ra/cleanarch-go/usecases/service"
 
     "net/http"
+    "fmt"
 )
 
 type UserCreateInputData struct {
@@ -33,11 +34,11 @@ func NewUserCreateUseCase(
 func (uc *UserCreateUseCase) Execute(userCreateInputData UserCreateInputData) (UserCreateOutputData, UseCaseError) {
 
     _, findUserError := uc.Ur.FindUserById(userCreateInputData.UserId)
-    if findUserError != nil {
+    if findUserError == nil {
         findUserErr := UseCaseError {
             StatusCode: http.StatusInternalServerError,
             Msg: "User Already Exists",
-            Err: findUserError,
+            Err: fmt.Errorf("User Already Exists"),
         }
         return UserCreateOutputData{}, findUserErr
     }
@@ -52,9 +53,9 @@ func (uc *UserCreateUseCase) Execute(userCreateInputData UserCreateInputData) (U
         return UserCreateOutputData{}, encryptPasswordErr
     }
 
-    user := domain_model.GenerateUser(userCreateInputData.UserId, userCreateInputData.Email, encryptedPassword)
+    newUser := domain_model.GenerateUser(userCreateInputData.UserId, userCreateInputData.Email, encryptedPassword)
 
-    userCreateError := uc.Ur.Save(user)
+    userCreateError := uc.Ur.Save(newUser)
     if userCreateError != nil {
         userCreateErr := UseCaseError {
             StatusCode: http.StatusInternalServerError,
