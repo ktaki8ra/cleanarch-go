@@ -15,7 +15,9 @@ type DIModules struct {
 
 func LoadDI(dbConfig DBConfig) DIModules {
     // DI for cryptoService
-    cryptoServiceImpl := &gateway.CryptoServiceImpl{}
+    cryptoServiceImpl := &gateway.CryptoServiceImpl{
+        SecretKey: "EhDxBNy7hdQ2tVW56He9AqX7ihFVqtxz",
+    }
 
     // DI for userRepository
     dbConn, err := NewDBConnection(dbConfig)
