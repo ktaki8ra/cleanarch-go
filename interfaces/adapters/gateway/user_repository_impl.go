@@ -38,3 +38,8 @@ func (ur *UserRepositoryImpl) Save(user domain_model.User) error {
     res := ur.DB.Create(&newUser)
     return res.Error
 }
+
+func (ur *UserRepositoryImpl) Delete(user domain_model.User) error {
+    result := ur.DB.Unscoped().Where("user_id = ?", user.UserId.Value).Delete(&db_model.Users{})
+    return result.Error
+}

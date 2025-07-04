@@ -71,3 +71,9 @@ func (cs *CryptoServiceImpl) Decrypt(
     return domain_model.PlainTextPassword{Value: string(plain)}, nil
 }
 
+func (cs *CryptoServiceImpl) Matches(
+    value0 string,
+    value1 string,
+) bool {
+    return value0 == value1
+}

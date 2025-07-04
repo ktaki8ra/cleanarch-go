@@ -7,4 +7,5 @@ import (
 type CryptoService interface {
     Encrypt(plainTextPassword domain_model.PlainTextPassword) (domain_model.EncryptedPassword, error)
     Decrypt(encryptedPassword domain_model.EncryptedPassword) (domain_model.PlainTextPassword, error)
+    Matches(value0 string, value1 string) bool
 }
