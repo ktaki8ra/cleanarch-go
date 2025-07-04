@@ -30,6 +30,25 @@ func (ur *UserRepositoryImpl) FindUserById(
     }, nil
 }
 
+func (ur *UserRepositoryImpl) FindUserByEmail(
+    email domain_model.Email,
+) (domain_model.User, error) {
+    var userRow struct {
+        UserId string
+        Email string
+        EncryptedPassword string
+    }
+    result := ur.DB.Table("users").Where("email = ?", email.Value).First(&userRow)
+    if result.Error != nil {
+        return domain_model.User{}, result.Error
+    }
+    return domain_model.User{
+        UserId:            domain_model.UserId{Value: userRow.UserId},
+        Email:             domain_model.Email{Value: userRow.Email},
+        EncryptedPassword: domain_model.EncryptedPassword{Value: userRow.EncryptedPassword},
+    }, nil
+}
+
 func (ur *UserRepositoryImpl) Save(user domain_model.User) error {
     newUser := db_model.Users{
         UserId:            user.UserId.Value,

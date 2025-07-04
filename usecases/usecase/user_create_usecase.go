@@ -33,14 +33,24 @@ func NewUserCreateUseCase(
 }
 func (uc *UserCreateUseCase) Execute(userCreateInputData UserCreateInputData) (UserCreateOutputData, UseCaseError) {
 
-    _, findUserError := uc.Ur.FindUserById(userCreateInputData.UserId)
-    if findUserError == nil {
-        findUserErr := UseCaseError {
+    _, findUserByIdError := uc.Ur.FindUserById(userCreateInputData.UserId)
+    if findUserByIdError == nil {
+        findUserByIdErr := UseCaseError {
             StatusCode: http.StatusInternalServerError,
-            Msg: "User Already Exists",
-            Err: fmt.Errorf("User Already Exists"),
+            Msg: "Input UserId Already Exists",
+            Err: fmt.Errorf("Input UserId Already Exists"),
         }
-        return UserCreateOutputData{}, findUserErr
+        return UserCreateOutputData{}, findUserByIdErr
+    }
+
+    _, findUserByEmailError := uc.Ur.FindUserByEmail(userCreateInputData.Email)
+    if findUserByEmailError == nil {
+        findUserByEmailErr := UseCaseError {
+            StatusCode: http.StatusInternalServerError,
+            Msg: "Input Email Already Exists",
+            Err: fmt.Errorf("Input Email Already Exists"),
+        }
+        return UserCreateOutputData{}, findUserByEmailErr
     }
 
     encryptedPassword, encryptPasswordError := uc.Cs.Encrypt(userCreateInputData.PlainTextPassword)
