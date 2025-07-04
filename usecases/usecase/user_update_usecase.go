@@ -68,7 +68,7 @@ func (uc *UserUpdateUseCase) Execute(userUpdateInputData UserUpdateInputData) (U
     if userUpdateError != nil {
         userUpdateErr := UseCaseError {
             StatusCode: http.StatusInternalServerError,
-            Msg: "User Delete Error",
+            Msg: "User Update Error",
             Err: userUpdateError,
         }
         return UserUpdateOutputData{}, userUpdateErr

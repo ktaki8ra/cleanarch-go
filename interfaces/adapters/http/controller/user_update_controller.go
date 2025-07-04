@@ -16,14 +16,14 @@ func UserUpdateController(di config.DIModules) echo.HandlerFunc {
 
         userUpdateRequestJson, decodeJsonErr := decoder.DecodeUserUpdateRequestJson(c)
         if decodeJsonErr.Err != nil {
-            log.Printf("User Delete Request Json couldn't be decoded.")
+            log.Printf("User Update Request Json couldn't be decoded.")
             decoderErrorResponse := presenter.DecoderJsonErrorConvert(decodeJsonErr)
             return c.JSON(decoderErrorResponse.StatusCode, decoderErrorResponse)
         }
 
         userUpdateInputData, userUpdateValidationErr := validator.ValidateUserUpdateData(userUpdateRequestJson)
         if userUpdateValidationErr.Err != nil {
-            log.Printf("User Delete Request Data failed Validation.")
+            log.Printf("User Update Request Data failed Validation.")
             validationErrorResponse := presenter.ValidationErrorConvert(userUpdateValidationErr)
             return c.JSON(validationErrorResponse.StatusCode, validationErrorResponse)
         }
@@ -34,7 +34,7 @@ func UserUpdateController(di config.DIModules) echo.HandlerFunc {
         )
         userUpdateOutputData, useCaseErr := userUpdateUseCase.Execute(userUpdateInputData)
         if useCaseErr.Err != nil {
-            log.Printf("User Delete UseCase failed.")
+            log.Printf("User Update UseCase failed.")
             usecaseErrorResponse := presenter.UseCaseErrorConvert(useCaseErr)
             return c.JSON(usecaseErrorResponse.StatusCode, usecaseErrorResponse)
         }
