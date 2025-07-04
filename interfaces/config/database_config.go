@@ -4,6 +4,9 @@ import (
     "fmt"
     "gorm.io/driver/postgres"
     "gorm.io/gorm"
+    "os/user"
+    "log"
+    "os"
 )
 
 type DBConfig struct {
@@ -13,10 +16,19 @@ type DBConfig struct {
     Port int
 }
 
+func getCurrentUser() (*user.User, error) {
+    return user.Current()
+}
+
 func LoadDBConfig() DBConfig {
+    currentUser, err := getCurrentUser()
+    if err != nil {
+        log.Fatalf("Failed to get current User info")
+        os.Exit(1)
+    }
     return DBConfig{
         Host: "localhost",
-        User: "kodai",
+        User: currentUser.Username,
         DBName: "cleanarch_sample_go",
         Port: 5432,
     }
