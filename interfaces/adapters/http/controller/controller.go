@@ -25,7 +25,7 @@ func (c *Controller) Run(httpConfig config.HttpConfig) error {
     e.Use(middleware.Logger())
     e.Use(middleware.Recover())
 
-    e.POST("/create/user", UserCreateController(c.DIModules))
+    e.POST("/user/create", UserCreateController(c.DIModules))
 
     if err := e.Start(":" + strconv.Itoa(httpConfig.Port)); err != nil && !errors.Is(err, http.ErrServerClosed) {
         slog.Error("failed to start server", "error", err)
