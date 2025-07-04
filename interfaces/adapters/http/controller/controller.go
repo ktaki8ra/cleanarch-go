@@ -27,6 +27,7 @@ func (c *Controller) Run(httpConfig config.HttpConfig) error {
 
     e.POST("/user/create", UserCreateController(c.DIModules))
     e.DELETE("/user/delete", UserDeleteController(c.DIModules))
+    e.PUT("/user/update", UserUpdateController(c.DIModules))
 
     if err := e.Start(":" + strconv.Itoa(httpConfig.Port)); err != nil && !errors.Is(err, http.ErrServerClosed) {
         slog.Error("failed to start server", "error", err)
