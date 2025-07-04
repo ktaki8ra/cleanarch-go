@@ -25,6 +25,7 @@ func (c *Controller) Run(httpConfig config.HttpConfig) error {
     e.Use(middleware.Logger())
     e.Use(middleware.Recover())
 
+    e.GET("/user/me", UserGetController(c.DIModules))
     e.POST("/user/create", UserCreateController(c.DIModules))
     e.DELETE("/user/delete", UserDeleteController(c.DIModules))
     e.PUT("/user/update", UserUpdateController(c.DIModules))
