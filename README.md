@@ -14,6 +14,12 @@ $ make dbmigrate
 $ make build
 ```
 
+## テスト
+・テスト実行
+```
+$ make test
+```
+
 ## 実行方法
 ・DBマイグレート実行
 ```
