@@ -7,5 +7,8 @@ build:
 dbmigrate:
 	go build -o $(TARGET_MIGRATE) ./external/migrate/migrate.go
 
+test:
+	go test -race -v ./...
+
 clean:
 	rm -rf $(TARGET_APP) $(TARGET_MIGRATE)
