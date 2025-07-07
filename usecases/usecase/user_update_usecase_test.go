@@ -11,6 +11,11 @@ import (
 )
 
 func TestUserUpdateUseCase(t *testing.T) {
+    input := usecase.UserUpdateInputData{
+        UserId:            domain_model.UserId{Value: "user01"},
+        NewUserId:         domain_model.UserId{Value: "test01"},
+        PlainTextPassword: domain_model.PlainTextPassword{Value: "???"},
+    }
     t.Run("Success", func(t *testing.T) {
         input := usecase.UserUpdateInputData{
             UserId:            domain_model.UserId{Value: "user01"},
@@ -46,6 +51,5 @@ func TestUserUpdateUseCase(t *testing.T) {
         assert.Empty(t, err.Err)
         assert.Equal(t, input.NewUserId, output.UserId)
     })
-
 }
 

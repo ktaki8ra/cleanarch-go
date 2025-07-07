@@ -12,12 +12,12 @@ import (
 )
 
 func TestUserCreateUseCase(t *testing.T) {
+    input := usecase.UserCreateInputData{
+        UserId:            domain_model.UserId{Value: "user01"},
+        Email:             domain_model.Email{Value: "user01@example.com"},
+        PlainTextPassword: domain_model.PlainTextPassword{Value: "???"},
+    }
     t.Run("Success", func(t *testing.T) {
-        input := usecase.UserCreateInputData{
-            UserId:            domain_model.UserId{Value: "user01"},
-            Email:             domain_model.Email{Value: "user01@example.com"},
-            PlainTextPassword: domain_model.PlainTextPassword{Value: "???"},
-        }
         mockRepo := &mock.MockUserRepository{
             FindUserByIdFunc: func(userId domain_model.UserId) (domain_model.User, error) {
                 return domain_model.User{}, errors.New("Input UserId Not Found")
@@ -41,11 +41,6 @@ func TestUserCreateUseCase(t *testing.T) {
     })
 
     t.Run("Failed: Already Exists UserId", func(t *testing.T) {
-        input := usecase.UserCreateInputData{
-            UserId:            domain_model.UserId{Value: "user01"},
-            Email:             domain_model.Email{Value: "user01@example.com"},
-            PlainTextPassword: domain_model.PlainTextPassword{Value: "???"},
-        }
         mockRepo := &mock.MockUserRepository{
             FindUserByIdFunc: func(userId domain_model.UserId) (domain_model.User, error) {
                 return domain_model.User{
@@ -74,11 +69,6 @@ func TestUserCreateUseCase(t *testing.T) {
     })
 
     t.Run("Failed: Already Exists Email", func(t *testing.T) {
-        input := usecase.UserCreateInputData{
-            UserId:            domain_model.UserId{Value: "user01"},
-            Email:             domain_model.Email{Value: "user01@example.com"},
-            PlainTextPassword: domain_model.PlainTextPassword{Value: "???"},
-        }
         mockRepo := &mock.MockUserRepository{
             FindUserByIdFunc: func(userId domain_model.UserId) (domain_model.User, error) {
                 return domain_model.User{}, errors.New("Input UserId not found")
@@ -107,11 +97,6 @@ func TestUserCreateUseCase(t *testing.T) {
     })
 
     t.Run("Failed: Encrypt Password Error", func(t *testing.T) {
-        input := usecase.UserCreateInputData{
-            UserId:            domain_model.UserId{Value: "user01"},
-            Email:             domain_model.Email{Value: "user01@example.com"},
-            PlainTextPassword: domain_model.PlainTextPassword{Value: "???"},
-        }
         mockRepo := &mock.MockUserRepository{
             FindUserByIdFunc: func(userId domain_model.UserId) (domain_model.User, error) {
                 return domain_model.User{}, errors.New("Input UserId not found")
@@ -136,11 +121,6 @@ func TestUserCreateUseCase(t *testing.T) {
     })
 
     t.Run("Failed: Create User failure", func(t *testing.T) {
-        input := usecase.UserCreateInputData{
-            UserId:            domain_model.UserId{Value: "user01"},
-            Email:             domain_model.Email{Value: "user01@example.com"},
-            PlainTextPassword: domain_model.PlainTextPassword{Value: "???"},
-        }
         mockRepo := &mock.MockUserRepository{
             FindUserByIdFunc: func(userId domain_model.UserId) (domain_model.User, error) {
                 return domain_model.User{}, errors.New("Input UserId not found")
