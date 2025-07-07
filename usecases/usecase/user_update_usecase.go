@@ -43,6 +43,16 @@ func (uc *UserUpdateUseCase) Execute(userUpdateInputData UserUpdateInputData) (U
         return UserUpdateOutputData{}, findUserErr
     }
 
+    _, findNewUserError := uc.Ur.FindUserById(userUpdateInputData.NewUserId)
+    if findNewUserError == nil {
+        newUserIdAlreadyExists := UseCaseError {
+            StatusCode: http.StatusConflict,
+            Msg: "Input NewUserId Already Exists",
+            Err: fmt.Errorf("Input NewUserId Already Exists"),
+        }
+        return UserUpdateOutputData{}, newUserIdAlreadyExists
+    }
+
     plainTextPassword, decryptPasswordError := uc.Cs.Decrypt(currentUser.EncryptedPassword)
     if decryptPasswordError != nil {
         decryptPasswordErr := UseCaseError {

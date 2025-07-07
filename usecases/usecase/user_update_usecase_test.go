@@ -1,6 +1,7 @@
 package usecase_test
 
 import (
+    "errors"
     "testing"
     "github.com/ktaki8ra/cleanarch-go/mock"
 
@@ -18,11 +19,15 @@ func TestUserUpdateUseCase(t *testing.T) {
         }
         mockRepo := &mock.MockUserRepository{
             FindUserByIdFunc: func(userId domain_model.UserId) (domain_model.User, error) {
-                return domain_model.User{
-                    UserId: domain_model.UserId{Value: "user01"},
-                    Email: domain_model.Email{Value: "user01@example.com"},
-                    EncryptedPassword: domain_model.EncryptedPassword{Value: "???"},
-                }, nil
+                if userId.Value == "user01" {
+                    return domain_model.User{
+                        UserId: domain_model.UserId{Value: "user01"},
+                        Email: domain_model.Email{Value: "user01@example.com"},
+                        EncryptedPassword: domain_model.EncryptedPassword{Value: "???"},
+                    }, nil
+                } else {
+                    return domain_model.User{}, errors.New("Input NewUserId already Exists Error")
+                }
             },
             UpdateFunc: func(currentUserId domain_model.UserId, newUser domain_model.User) error {
                 return nil
