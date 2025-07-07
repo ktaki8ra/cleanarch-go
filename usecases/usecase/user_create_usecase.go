@@ -36,7 +36,7 @@ func (uc *UserCreateUseCase) Execute(userCreateInputData UserCreateInputData) (U
     _, findUserByIdError := uc.Ur.FindUserById(userCreateInputData.UserId)
     if findUserByIdError == nil {
         findUserByIdErr := UseCaseError {
-            StatusCode: http.StatusInternalServerError,
+            StatusCode: http.StatusConflict,
             Msg: "Input UserId Already Exists",
             Err: fmt.Errorf("Input UserId Already Exists"),
         }
@@ -46,7 +46,7 @@ func (uc *UserCreateUseCase) Execute(userCreateInputData UserCreateInputData) (U
     _, findUserByEmailError := uc.Ur.FindUserByEmail(userCreateInputData.Email)
     if findUserByEmailError == nil {
         findUserByEmailErr := UseCaseError {
-            StatusCode: http.StatusInternalServerError,
+            StatusCode: http.StatusConflict,
             Msg: "Input Email Already Exists",
             Err: fmt.Errorf("Input Email Already Exists"),
         }
