@@ -1,4 +1,6 @@
 # cleanarch-go
+[![CI](https://github.com/ktaki8ra/cleanarch-go/actions/workflows/ci.yml/badge.svg)](https://github.com/ktaki8ra/cleanarch-go/actions/workflows/ci.yml)
+
 Go言語で簡単なAPIを実装してみる。   
 クリーンアーキテクチャを参考にしている。
 
