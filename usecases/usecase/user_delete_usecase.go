@@ -35,9 +35,9 @@ func (uc *UserDeleteUseCase) Execute(userDeleteInputData UserDeleteInputData) (U
     user, findUserError := uc.Ur.FindUserById(userDeleteInputData.UserId)
     if findUserError != nil {
         findUserErr := UseCaseError {
-            StatusCode: http.StatusInternalServerError,
-            Msg: fmt.Sprintf("UserId %s Not Exists", userDeleteInputData.UserId.Value),
-            Err: fmt.Errorf("UserId %s Not Exists", userDeleteInputData.UserId.Value),
+            StatusCode: http.StatusNotFound,
+            Msg: fmt.Sprintf("UserId %s Not Found", userDeleteInputData.UserId.Value),
+            Err: fmt.Errorf("UserId %s Not Found", userDeleteInputData.UserId.Value),
         }
         return UserDeleteOutputData{}, findUserErr
     }
