@@ -31,9 +31,9 @@ func (uc *UserGetUseCase) Execute(userGetInputData UserGetInputData) (UserGetOut
     user, findUserError := uc.Ur.FindUserById(userGetInputData.UserId)
     if findUserError != nil {
         findUserErr := UseCaseError {
-            StatusCode: http.StatusInternalServerError,
-            Msg: fmt.Sprintf("UserId %s Not Exists", userGetInputData.UserId.Value),
-            Err: fmt.Errorf("UserId %s Not Exists", userGetInputData.UserId.Value),
+            StatusCode: http.StatusNotFound,
+            Msg: fmt.Sprintf("UserId %s Not Found", userGetInputData.UserId.Value),
+            Err: fmt.Errorf("UserId %s Not Found", userGetInputData.UserId.Value),
         }
         return UserGetOutputData{}, findUserErr
     }
