@@ -22,6 +22,7 @@ func TestUserDeleteUseCase(t *testing.T) {
             FindUserByIdFunc: func(userId domain_model.UserId) (domain_model.User, error) {
                 return domain_model.User{
                     UserId: domain_model.UserId{Value: "user01"},
+                    Email: domain_model.Email{Value: "user01@example.com"},
                     EncryptedPassword: domain_model.EncryptedPassword{Value: "???"},
                 }, nil
             },
@@ -77,6 +78,7 @@ func TestUserDeleteUseCase(t *testing.T) {
             FindUserByIdFunc: func(userId domain_model.UserId) (domain_model.User, error) {
                 return domain_model.User{
                     UserId: domain_model.UserId{Value: "user01"},
+                    Email: domain_model.Email{Value: "user01@example.com"},
                     EncryptedPassword: domain_model.EncryptedPassword{Value: "???"},
                 }, nil
             },
@@ -108,6 +110,7 @@ func TestUserDeleteUseCase(t *testing.T) {
             FindUserByIdFunc: func(userId domain_model.UserId) (domain_model.User, error) {
                 return domain_model.User{
                     UserId: domain_model.UserId{Value: "user01"},
+                    Email: domain_model.Email{Value: "user01@example.com"},
                     EncryptedPassword: domain_model.EncryptedPassword{Value: "???"},
                 }, nil
             },
@@ -139,6 +142,7 @@ func TestUserDeleteUseCase(t *testing.T) {
             FindUserByIdFunc: func(userId domain_model.UserId) (domain_model.User, error) {
                 return domain_model.User{
                     UserId: domain_model.UserId{Value: "user01"},
+                    Email: domain_model.Email{Value: "user01@example.com"},
                     EncryptedPassword: domain_model.EncryptedPassword{Value: "???"},
                 }, nil
             },
