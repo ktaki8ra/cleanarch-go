@@ -8,49 +8,68 @@ Go言語で簡単なAPIを実装してみる。
 ・DBマイグレート用実行ファイルの作成   
 `db-migrate`という実行ファイルが生成される
 ```
-$ make dbmigrate
+make dbmigrate
 ```
 ・アプリケーション実行ファイルの作成   
 `cleanarch-go`という実行ファイルが生成される
 ```
-$ make build
+make build
 ```
 
 ## テスト
 ・テスト実行
 ```
-$ make test
+make test
 ```
 
 ## 実行方法
 ・DBマイグレート実行
 ```
-$ createdb cleanarch_sample_go
-$ ./db-migrate
+createdb cleanarch_sample_go && ./db-migrate
 ```
 ・アプリケーション実行
 ```
-$ ./cleanarch-go
+./cleanarch-go
 ```
 
 ## クライアントサンプル
-・ユーザー作成 (POST `/user/create`)
+クライアントのサンプルリクエスト・レスポンス
+### ユーザー作成 (POST `/user/create`)
+・リクエスト
 ```
-$ curl -X POST -H "Content-Type: application/json" -d '{"user_id":"test01", "email":"test@example.com", "password":"p4ssw0rd"}' http://localhost:8080/user/create
+curl -X POST -H "Content-Type: application/json" -d '{"user_id":"test01", "email":"test@example.com", "password":"p4ssw0rd"}' http://localhost:8080/user/create
+```
+・レスポンス
+```
 {"status_code":200,"message":"User Created.","user_id":"test01"}
 ```
-・ユーザー更新 (PUT `/user/update`)
+
+### ユーザー更新 (PUT `/user/update`)
+・リクエスト
 ```
-$ curl -X PUT -H "Content-Type: application/json" -d '{"user_id":"test01", "new_user_id":"user01", "password":"p4ssw0rd"}' http://localhost:8080/user/update
+curl -X PUT -H "Content-Type: application/json" -d '{"user_id":"test01", "new_user_id":"user01", "password":"p4ssw0rd"}' http://localhost:8080/user/update
+```
+・レスポンス
+```
 {"status_code":200,"message":"User Updated.","user_id":"user01"}
 ```
-・ユーザー取得 (GET `/user/me`)
+
+### ユーザー取得 (GET `/user/me`)
+・リクエスト
 ```
-$ curl -X GET -H "Content-Type: application/json" -d '{"user_id":"user01"}' http://localhost:8080/user/me
+curl -X GET -H "Content-Type: application/json" -d '{"user_id":"user01"}' http://localhost:8080/user/me
+```
+・レスポンス
+```
 {"status_code":200,"user_id":"user01","email":"test@example.com"}
 ```
-・ユーザー削除 (DELETE `/user/delete`)
+
+### ユーザー削除 (DELETE `/user/delete`)
+・リクエスト
 ```
-$ curl -X DELETE -H "Content-Type: application/json" -d '{"user_id":"user01", "password":"p4ssw0rd"}' http://localhost:8080/user/delete
+curl -X DELETE -H "Content-Type: application/json" -d '{"user_id":"user01", "password":"p4ssw0rd"}' http://localhost:8080/user/delete
+```
+・レスポンス
+```
 {"status_code":200,"message":"User Deleted.","user_id":"user01"}
 ```
