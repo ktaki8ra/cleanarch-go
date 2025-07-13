@@ -73,3 +73,7 @@ curl -X DELETE -H "Content-Type: application/json" -d '{"user_id":"user01", "pas
 ```
 {"status_code":200,"message":"User Deleted.","user_id":"user01"}
 ```
+
+## 参考文献
+- https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
+- https://qiita.com/nrslib/items/a5f902c4defc83bd46b8
